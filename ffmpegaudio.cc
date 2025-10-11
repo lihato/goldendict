@@ -350,7 +350,9 @@ void DecoderContext::closeCodec()
   if ( audioStream_ && codecContext_ && codec_ )
   {
     audioStream_->discard = AVDISCARD_ALL;
+#if LIBAVCODEC_VERSION_MAJOR < 61
     avcodec_close( codecContext_ );
+#endif
 #if LIBAVCODEC_VERSION_MAJOR > 57 || ( LIBAVCODEC_VERSION_MAJOR == 57 && LIBAVCODEC_VERSION_MINOR >= 33 )
     avcodec_free_context( &codecContext_ );
 #endif
